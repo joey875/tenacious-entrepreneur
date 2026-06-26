@@ -771,7 +771,7 @@
       </div>
       <div style="display:flex;gap:0.8rem;flex-wrap:wrap;justify-content:center;">
         <a href="https://www.amazon.com" target="_blank" class="btn-primary" style="font-size:0.78rem;padding:0.7rem 1.4rem;">Get the Book →</a>
-        <a href="#audio" class="btn-secondary" style="font-size:0.78rem;padding:0.7rem 1.4rem;">🎧 Listen Now</a>
+        <a href="#podcast" class="btn-secondary" style="font-size:0.78rem;padding:0.7rem 1.4rem;">🎧 Listen Now</a>
       </div>
     </div>
   </div>
@@ -924,10 +924,8 @@
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- AUDIO TOOL -->
-<section class="audio-section" id="audio">
+<!-- AUDIO TOOL HIDDEN - Revenue model TBD -->
+<section class="audio-section" id="audio" style="display:none;">
   <p class="section-eyebrow">Script to Audio</p>
   <h2 class="section-title">Convert Your Script to Audio</h2>
   <p class="section-body">Have a script ready? Submit it here and convert it to professional audio using ElevenLabs AI voice technology. Login required.</p>
@@ -1161,7 +1159,7 @@
   <div style="margin-top:4rem;">
     <div id="profileAuthGate" style="text-align:center;">
       <p style="color:var(--stone);margin-bottom:1.5rem;font-size:0.95rem;">Sign in to create your profile and join the community.</p>
-      <a href="#audio" class="btn-primary" onclick="document.getElementById('audio').scrollIntoView()">Sign In / Create Account</a>
+      <button onclick="document.getElementById('profileEditor').style.display='block';document.getElementById('profileAuthGate').style.display='none';" class="btn-primary">Sign In / Create Account</button>
     </div>
 
     <div id="profileEditor" style="display:none;">
@@ -1501,7 +1499,7 @@
   <div class="job-tab-content" id="jobtab-post">
     <div id="postJobAuthGate" style="text-align:center;padding:2rem;">
       <p style="color:var(--stone);margin-bottom:1.5rem;">Sign in to post a job for the community.</p>
-      <a href="#audio" class="btn-primary">Sign In to Post</a>
+      <button onclick="alert('Sign in via the Community section above.')" class="btn-primary">Sign In to Post</button>
     </div>
     <div id="postJobForm" style="display:none;">
       <div class="form-wrap" style="margin-top:0;max-width:800px;">
@@ -1577,7 +1575,6 @@
     <div class="footer-col">
       <h4>Resources</h4>
       <a href="#tools">Free Tools</a>
-      <a href="#audio">Script to Audio</a>
       <a href="mailto:joey@tenaciousentrepreneur.com">Contact Us</a>
       <a href="#">Tenacious Entrepreneur Fund</a>
       <a href="#">Publishing Services</a>
