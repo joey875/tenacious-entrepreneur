@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tenacious Entrepreneur</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Bebas+Neue&display=swap');
+
+  :root {
+    --black: #0A0A0A;
+    --red: #C8952A;
+    --red-dark: #A67C20;
+    --gold: #D4A017;
+    --stone: #C8B89A;
+    --white: #FFFFFF;
+    --gray: #1A1A1A;
+    --gray-mid: #555;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(184,134,11,0.4);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.15em;
+    color: var(--white);
+  }
+  .nav-logo span { color: var(--red); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    color: var(--stone); text-decoration: none;
+    font-size: 0.85rem; letter-spacing: 0.08em;
+    text-transform: uppercase; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--red); color: var(--white) !important;
+    padding: 0.6rem 1.4rem; border-radius: 2px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--red-dark) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    position: relative; overflow: hidden;
+    background: #0A0A0A;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(184,134,11,0.12) 0%, transparent 60%);
+  }
+  .hero-text { position: relative; z-index: 2; }
+  .hero-eyebrow {
+    font-size: 0.75rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--red);
+    margin-bottom: 1.5rem; font-weight: 600;
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 8vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    margin-bottom: 1rem;
+  }
+  .hero-title .line1 { color: #FFFFFF; display: block; }
+  .hero-title .line2 { color: var(--red); display: block; }
+  .hero-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-style: italic;
+    color: #C8B89A; opacity: 1;
+    line-height: 1.6; max-width: 480px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--red); color: var(--white);
+    padding: 1rem 2rem; border: none; border-radius: 2px;
+    font-size: 0.85rem; letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent; color: var(--stone);
+    padding: 1rem 2rem; border: 1px solid rgba(212,197,169,0.4);
+    border-radius: 2px; font-size: 0.85rem; letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 500;
+    cursor: pointer; text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--stone); color: var(--white); }
+  .hero-image {
+    position: relative; z-index: 2;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .book-cover-wrap {
+    width: 280px;
+    box-shadow: -20px 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(196,30,58,0.2);
+    transform: perspective(800px) rotateY(-8deg);
+    transition: transform 0.4s;
+  }
+  .book-cover-wrap:hover { transform: perspective(800px) rotateY(-3deg) scale(1.02); }
+  .book-cover-wrap img { width: 100%; display: block; }
+
+  /* FORCE DARK ON ALL SECTIONS */
+  html, body { background: #0A0A0A !important; }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+    margin: 0 3rem;
+  }
+
+  /* SECTION BASE */
+  section { padding: 6rem 3rem; }
+  .section-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--red);
+    font-weight: 600; margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700; line-height: 1.2;
+    margin-bottom: 1.5rem; color: var(--white);
+  }
+  .section-body {
+    color: var(--stone); line-height: 1.8;
+    font-size: 1rem; max-width: 620px;
+  }
+
+  /* THE MOVEMENT */
+  .movement {
+    background: #1A1A1A;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+  .movement-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .stat-card {
+    border-left: 3px solid var(--red);
+    padding-left: 1.2rem;
+  }
+  .stat-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem; color: var(--white); line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.78rem; color: var(--stone);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  /* THE PIPELINE */
+  .pipeline { background: var(--black); }
+  .pipeline-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2rem; margin-top: 4rem;
+    position: relative;
+  }
+  .pipeline-steps::before {
+    content: '';
+    position: absolute; top: 2rem; left: 10%; right: 10%;
+    height: 1px; background: linear-gradient(90deg, var(--red), var(--gold));
+  }
+  .step {
+    text-align: center; position: relative;
+  }
+  .step-number {
+    width: 4rem; height: 4rem;
+    background: var(--black); border: 2px solid var(--red);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 1.5rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem; color: var(--red);
+    position: relative; z-index: 1;
+  }
+  .step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 700;
+    color: var(--white); margin-bottom: 0.5rem;
+  }
+  .step-desc { font-size: 0.85rem; color: var(--stone); line-height: 1.6; }
+
+  /* THE BOOK */
+  .book-section {
+    background: #1A1A1A;
+    display: grid; grid-template-columns: 1fr 1.5fr;
+    gap: 5rem; align-items: center;
+  }
+  .book-img-wrap {
+    display: flex; justify-content: center;
+  }
+  .book-img-wrap img {
+    width: 240px;
+    box-shadow: 10px 20px 50px rgba(0,0,0,0.7);
+  }
+  .book-features { margin-top: 2rem; }
+  .book-feature {
+    display: flex; align-items: flex-start; gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+  .feature-dot {
+    width: 6px; height: 6px; background: var(--red);
+    border-radius: 50%; margin-top: 0.5rem; flex-shrink: 0;
+  }
+  .feature-text { font-size: 0.9rem; color: var(--stone); line-height: 1.6; }
+
+  /* SUBMIT STORY */
+  .submit-section { background: var(--black); max-width: 800px; margin: 0 auto; }
+  .form-wrap {
+    background: #1A1A1A;
+    border: 1px solid rgba(196,30,58,0.2);
+    border-radius: 4px; padding: 3rem;
+    margin-top: 3rem;
+  }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-group.full { grid-column: 1 / -1; }
+  label {
+    font-size: 0.78rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--stone);
+    font-weight: 500;
+  }
+  input, textarea {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,197,169,0.2);
+    border-radius: 2px; padding: 0.85rem 1rem;
+    color: var(--white); font-family: 'Inter', sans-serif;
+    font-size: 0.95rem; transition: border-color 0.2s;
+    outline: none;
+  }
+  input:focus, textarea:focus { border-color: var(--red); }
+  textarea { resize: vertical; min-height: 180px; }
+  .form-submit {
+    background: var(--red); color: var(--white);
+    border: none; padding: 1.1rem 2.5rem;
+    font-size: 0.85rem; letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 600;
+    cursor: pointer; border-radius: 2px;
+    width: 100%; margin-top: 1rem;
+    transition: background 0.2s;
+  }
+  .form-submit:hover { background: var(--red-dark); }
+  .form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+  .form-message {
+    padding: 1rem; border-radius: 2px;
+    margin-top: 1rem; font-size: 0.9rem;
+    display: none;
+  }
+  .form-message.success {
+    background: rgba(0,150,0,0.15);
+    border: 1px solid rgba(0,200,0,0.3);
+    color: #90ee90; display: block;
+  }
+  .form-message.error {
+    background: rgba(196,30,58,0.15);
+    border: 1px solid rgba(196,30,58,0.3);
+    color: #ff9999; display: block;
+  }
+
+  /* AUDIO TOOL */
+  .audio-section { background: #1A1A1A; }
+  .audio-gate {
+    max-width: 700px; margin: 3rem auto 0;
+    text-align: center;
+  }
+  .auth-tabs {
+    display: flex; gap: 0; margin-bottom: 2rem;
+    border: 1px solid rgba(196,30,58,0.3); border-radius: 4px;
+    overflow: hidden;
+  }
+  .auth-tab {
+    flex: 1; padding: 0.9rem;
+    background: transparent; border: none;
+    color: var(--stone); cursor: pointer;
+    font-size: 0.85rem; letter-spacing: 0.08em;
+    text-transform: uppercase; font-weight: 500;
+    transition: all 0.2s;
+  }
+  .auth-tab.active {
+    background: var(--red); color: var(--white);
+  }
+  .auth-form { display: none; }
+  .auth-form.active { display: block; }
+  .auth-form .form-group { margin-bottom: 1.2rem; }
+  .auth-btn {
+    background: var(--red); color: var(--white);
+    border: none; padding: 1rem 2rem;
+    font-size: 0.85rem; letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 600;
+    cursor: pointer; border-radius: 2px; width: 100%;
+    transition: background 0.2s; margin-top: 0.5rem;
+  }
+  .auth-btn:hover { background: var(--red-dark); }
+
+  .audio-tool { display: none; max-width: 700px; margin: 3rem auto 0; }
+  .audio-tool.visible { display: block; }
+  .user-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 2rem; padding: 1rem 1.5rem;
+    background: rgba(196,30,58,0.1);
+    border: 1px solid rgba(196,30,58,0.2); border-radius: 4px;
+  }
+  .user-email { font-size: 0.85rem; color: var(--stone); }
+  .sign-out-btn {
+    background: transparent; border: 1px solid rgba(212,197,169,0.3);
+    color: var(--stone); padding: 0.4rem 1rem;
+    font-size: 0.78rem; cursor: pointer; border-radius: 2px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .sign-out-btn:hover { border-color: var(--stone); color: var(--white); }
+  .elevenlabs-notice {
+    background: rgba(184,134,11,0.1);
+    border: 1px solid rgba(184,134,11,0.3);
+    border-radius: 4px; padding: 1rem 1.5rem;
+    margin-bottom: 2rem; font-size: 0.85rem; color: var(--stone);
+  }
+  .elevenlabs-notice strong { color: var(--gold); }
+  .jobs-list { margin-top: 2rem; }
+  .job-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(212,197,169,0.1);
+    border-radius: 4px; padding: 1rem 1.5rem;
+    margin-bottom: 0.8rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .job-title { font-size: 0.9rem; color: var(--white); }
+  .job-status {
+    font-size: 0.75rem; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+  }
+  .status-queued { background: rgba(184,134,11,0.2); color: var(--gold); }
+  .status-complete { background: rgba(0,150,0,0.2); color: #90ee90; }
+  .status-failed { background: rgba(196,30,58,0.2); color: #ff9999; }
+
+  /* FOOTER */
+  footer {
+    background: #080808;
+    padding: 4rem 3rem 2rem;
+    border-top: 1px solid rgba(196,30,58,0.2);
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 4rem; margin-bottom: 3rem;
+  }
+  .footer-brand .nav-logo { font-size: 1.6rem; margin-bottom: 1rem; }
+  .footer-tagline {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; color: var(--stone);
+    font-size: 0.9rem; line-height: 1.6;
+  }
+  .footer-col h4 {
+    font-size: 0.72rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--red);
+    margin-bottom: 1.2rem; font-weight: 600;
+  }
+  .footer-col a {
+    display: block; color: var(--stone);
+    text-decoration: none; font-size: 0.88rem;
+    margin-bottom: 0.6rem; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--white); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 2rem; text-align: center;
+    font-size: 0.78rem; color: var(--gray-mid);
+  }
+
+  /* PODCAST SECTION */
+  .podcast-section { background: #0A0A0A; }
+  .podcast-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2rem; margin-top: 3rem;
+  }
+  .podcast-card {
+    background: #1A1A1A;
+    border: 1px solid rgba(212,197,169,0.08);
+    border-radius: 4px; padding: 2rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .podcast-card:hover {
+    border-color: rgba(196,30,58,0.4);
+    transform: translateY(-4px);
+  }
+  .episode-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem; letter-spacing: 0.2em;
+    color: var(--red); margin-bottom: 0.8rem;
+  }
+  .episode-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; font-weight: 700;
+    color: var(--white); margin-bottom: 0.6rem;
+    line-height: 1.4;
+  }
+  .episode-guest { font-size: 0.82rem; color: var(--stone); }
+  .episodes-empty {
+    grid-column: 1 / -1; text-align: center;
+    color: var(--stone); padding: 3rem;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+  }
+
+  /* JOB BOARD */
+  .job-search-wrap {
+    display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;
+  }
+  .job-tabs {
+    display: flex; gap: 0; margin-bottom: 2rem;
+    border: 1px solid rgba(200,149,42,0.2);
+    border-radius: 4px; overflow: hidden;
+    max-width: 600px;
+  }
+  .job-tab {
+    flex: 1; padding: 0.9rem;
+    background: transparent; border: none;
+    color: var(--stone); cursor: pointer;
+    font-size: 0.82rem; letter-spacing: 0.05em;
+    font-weight: 500; transition: all 0.2s;
+  }
+  .job-tab.active { background: var(--red); color: var(--white); }
+  .job-tab-content { display: none; }
+  .job-tab-content.active { display: block; }
+  .ziprecruiter-notice {
+    background: rgba(200,149,42,0.08);
+    border: 1px solid rgba(200,149,42,0.2);
+    border-radius: 4px; padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem; font-size: 0.85rem;
+    color: var(--stone);
+  }
+  .ziprecruiter-notice strong { color: var(--red); }
+  .jobs-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem; margin-bottom: 2rem;
+  }
+  .job-card {
+    background: #0A0A0A;
+    border: 1px solid rgba(200,149,42,0.15);
+    border-radius: 4px; padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+    text-decoration: none; display: block;
+  }
+  .job-card:hover {
+    border-color: rgba(200,149,42,0.4);
+    transform: translateY(-2px);
+  }
+  .job-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 700;
+    color: var(--white); margin-bottom: 0.3rem;
+  }
+  .job-card-company {
+    font-size: 0.82rem; color: var(--red);
+    font-weight: 600; margin-bottom: 0.5rem;
+  }
+  .job-card-meta {
+    font-size: 0.78rem; color: var(--stone);
+    margin-bottom: 0.8rem; display: flex;
+    gap: 1rem; flex-wrap: wrap;
+  }
+  .job-card-desc {
+    font-size: 0.82rem; color: var(--stone);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .job-card-skills {
+    display: flex; gap: 0.4rem; flex-wrap: wrap;
+    margin-top: 0.8rem;
+  }
+  .jobs-empty {
+    grid-column: 1 / -1; text-align: center;
+    color: var(--stone); padding: 3rem;
+    font-family: 'Playfair Display', serif; font-style: italic;
+  }
+
+  @media (max-width: 900px) {
+    .jobs-grid { grid-template-columns: 1fr; }
+    .job-search-wrap { flex-direction: column; }
+    .job-tabs { max-width: 100%; }
+  }
+
+  /* COMMUNITY */
+  .community-search-wrap {
+    display: flex; gap: 1rem; margin-bottom: 3rem;
+    max-width: 700px;
+  }
+  .community-search {
+    flex: 1; background: #1A1A1A;
+    border: 1px solid rgba(200,149,42,0.3);
+    border-radius: 2px; padding: 1rem 1.2rem;
+    color: var(--white); font-family: 'Inter', sans-serif;
+    font-size: 0.95rem; outline: none;
+  }
+  .community-search:focus { border-color: var(--red); }
+  .community-search-btn {
+    background: var(--red); color: var(--white);
+    border: none; padding: 1rem 2rem;
+    font-size: 0.85rem; letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 600;
+    cursor: pointer; border-radius: 2px;
+    transition: background 0.2s;
+  }
+  .community-search-btn:hover { background: var(--red-dark); }
+  .profile-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-bottom: 2rem;
+  }
+  .profile-card {
+    background: #1A1A1A;
+    border: 1px solid rgba(200,149,42,0.15);
+    border-radius: 4px; padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+  .profile-card:hover {
+    border-color: rgba(200,149,42,0.4);
+    transform: translateY(-3px);
+  }
+  .profile-card-top {
+    display: flex; gap: 1rem; align-items: center;
+    margin-bottom: 1rem;
+  }
+  .profile-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: rgba(200,149,42,0.2);
+    border: 2px solid rgba(200,149,42,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem; color: var(--red);
+    flex-shrink: 0; overflow: hidden;
+  }
+  .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .profile-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 700; color: var(--white);
+  }
+  .profile-headline {
+    font-size: 0.78rem; color: var(--stone); margin-top: 0.2rem;
+  }
+  .profile-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+  .badge {
+    font-size: 0.68rem; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 0.25rem 0.6rem;
+    border-radius: 20px; font-weight: 600;
+  }
+  .badge-author { background: rgba(200,149,42,0.2); color: var(--red); }
+  .badge-podcast { background: rgba(100,100,200,0.2); color: #aaaaff; }
+  .profile-skills-preview {
+    display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.8rem;
+  }
+  .skill-tag {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px; padding: 0.2rem 0.6rem;
+    font-size: 0.72rem; color: var(--stone);
+  }
+  .profiles-empty {
+    grid-column: 1 / -1; text-align: center;
+    color: var(--stone); padding: 3rem;
+    font-family: 'Playfair Display', serif; font-style: italic;
+  }
+  .profile-editor-wrap {
+    background: #1A1A1A;
+    border: 1px solid rgba(200,149,42,0.2);
+    border-radius: 4px; padding: 2.5rem;
+    max-width: 900px;
+  }
+  .profile-tabs {
+    display: flex; gap: 0; margin-bottom: 2rem;
+    border: 1px solid rgba(200,149,42,0.2);
+    border-radius: 4px; overflow: hidden;
+  }
+  .profile-tab {
+    flex: 1; padding: 0.9rem;
+    background: transparent; border: none;
+    color: var(--stone); cursor: pointer;
+    font-size: 0.82rem; letter-spacing: 0.08em;
+    text-transform: uppercase; font-weight: 500;
+    transition: all 0.2s;
+  }
+  .profile-tab.active { background: var(--red); color: var(--white); }
+  .profile-tab-content { display: none; }
+  .profile-tab-content.active { display: block; }
+  .skill-item {
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px; padding: 0.8rem 1.2rem;
+    margin-bottom: 0.6rem;
+  }
+  .skill-item-info { flex: 1; }
+  .skill-item-name { font-size: 0.9rem; color: var(--white); font-weight: 500; }
+  .skill-item-meta { font-size: 0.75rem; color: var(--stone); margin-top: 0.2rem; }
+  .skill-remove {
+    background: transparent; border: none;
+    color: var(--stone); cursor: pointer; font-size: 1.1rem;
+    padding: 0.2rem 0.5rem; transition: color 0.2s;
+  }
+  .skill-remove:hover { color: #ff6666; }
+  .skill-add-form {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(200,149,42,0.1);
+    border-radius: 4px; padding: 1.5rem;
+  }
+
+  /* RESPONSIVE COMMUNITY */
+  @media (max-width: 900px) {
+    .profile-grid { grid-template-columns: 1fr; }
+    .community-search-wrap { flex-direction: column; }
+    .profile-tabs { flex-direction: column; }
+  }
+
+  /* FREE TOOLS */
+  .tools-category { margin-bottom: 4rem; }
+  .tools-cat-header {
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(200,149,42,0.2);
+  }
+  .tools-cat-icon { font-size: 2.5rem; line-height: 1; }
+  .tools-cat-eyebrow {
+    font-size: 0.7rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--red);
+    font-weight: 600; margin-bottom: 0.3rem;
+  }
+  .tools-cat-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 700;
+    color: var(--white); margin-bottom: 0.5rem;
+  }
+  .tools-cat-desc {
+    font-size: 0.9rem; color: var(--stone);
+    line-height: 1.7; max-width: 680px;
+  }
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+  .tool-card {
+    background: #1A1A1A;
+    border: 1px solid rgba(200,149,42,0.15);
+    border-radius: 4px; padding: 1.5rem;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.2s, background 0.2s;
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .tool-card:hover {
+    border-color: rgba(200,149,42,0.5);
+    background: #222;
+    transform: translateY(-3px);
+  }
+  .tool-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 700;
+    color: var(--white);
+  }
+  .tool-desc {
+    font-size: 0.82rem; color: var(--stone);
+    line-height: 1.6; flex: 1;
+  }
+  .tool-link {
+    font-size: 0.78rem; color: var(--red);
+    font-weight: 600; letter-spacing: 0.05em;
+    margin-top: 0.5rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 4rem; }
+    .hero-image { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .movement { grid-template-columns: 1fr; gap: 3rem; }
+    .pipeline-steps { grid-template-columns: 1fr 1fr; }
+    .pipeline-steps::before { display: none; }
+    .book-section { grid-template-columns: 1fr; }
+    .book-img-wrap { display: none; }
+    .podcast-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .tools-grid { grid-template-columns: 1fr; }
+    .tools-cat-header { flex-direction: column; gap: 0.8rem; }
+    .form-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">TENACIOUS <span>ENTREPRENEUR</span></div>
+  <div class="nav-links">
+    <a href="#movement">The Movement</a>
+    <a href="#podcast">Podcast</a>
+    <a href="#book">The Book</a>
+    <a href="#community">Community</a>
+    <a href="#jobs">Jobs</a>
+    <a href="#tools">Free Tools</a>
+    <a href="#submit" class="nav-cta">Submit Your Story</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">An Entrepreneur's True Story</p>
+    <h1 class="hero-title">
+      <span class="line1">TENACIOUS</span>
+      <span class="line2">ENTREPRENEUR</span>
+    </h1>
+    <p class="hero-subtitle">A journey through failure to the land of peace. Real stories. Real comebacks. Real faith.</p>
+    <div class="hero-buttons">
+      <a href="#submit" class="btn-primary">Submit Your Story</a>
+      <a href="#book" class="btn-secondary">Get the Book</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="book-cover-wrap">
+      <img src="https://xpomntnlvreyxcwlsgnn.supabase.co/storage/v1/object/public/assets/book-cover.png"
+           alt="Tenacious Entrepreneur Book Cover"
+           onerror="this.style.display='none'; this.parentElement.style.background='#1a1a1a'; this.parentElement.innerHTML='<div style=\'padding:3rem 2rem;text-align:center;font-family:Bebas Neue,sans-serif;font-size:1.2rem;color:#D4C5A9;letter-spacing:0.1em;\'>TENACIOUS<br><span style=\'color:#C41E3A;font-size:1.6rem;\'>ENTREPRENEUR</span><br><br><span style=\'font-size:0.8rem;\'>JOSEPH DUPONT</span></div>'">
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- THE MOVEMENT -->
+<section class="movement" id="movement">
+  <div>
+    <p class="section-eyebrow">Why We Exist</p>
+    <h2 class="section-title">Failure isn't the end.<br>It's the beginning.</h2>
+    <p class="section-body">Tenacious Entrepreneur is bigger than one story — it's a movement. Every week, one entrepreneur's story of failure, resilience, and comeback is selected to share with the world. One a month makes it into the annual book. Real entrepreneurs. Real failures. Real comebacks.</p>
+  </div>
+  <div class="movement-stats">
+    <div class="stat-card">
+      <div class="stat-number">1</div>
+      <div class="stat-label">Story selected per week</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">4</div>
+      <div class="stat-label">Podcast episodes per month</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">12</div>
+      <div class="stat-label">Stories in the annual book</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">∞</div>
+      <div class="stat-label">Lives that can change</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PIPELINE -->
+<section class="pipeline">
+  <p class="section-eyebrow">How It Works</p>
+  <h2 class="section-title">From your story to the world</h2>
+  <div class="pipeline-steps">
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-title">You Submit</div>
+      <div class="step-desc">Share your story of failure, resilience, and how you rebuilt. Every submission is read by our team.</div>
+    </div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-title">We Select</div>
+      <div class="step-desc">One story is chosen each week. If yours is selected, we reach out to feature you on the podcast.</div>
+    </div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-title">You're Featured</div>
+      <div class="step-desc">Your episode goes live on the Tenacious Entrepreneur Podcast — nationally syndicated.</div>
+    </div>
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-title">The Book</div>
+      <div class="step-desc">One episode per month is chosen for the annual book. Twelve stories. In print. In hands that need it.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PODCAST -->
+<section class="podcast-section" id="podcast">
+  <p class="section-eyebrow">The Podcast</p>
+  <h2 class="section-title">Tenacious Entrepreneur Podcast</h2>
+  <p class="section-body">Nationally syndicated. Built for the entrepreneur who needs to hear they're not alone. One new story every week — chosen from real submissions, told by the people who lived them.</p>
+  <div class="podcast-grid" id="episodesGrid">
+    <div class="episodes-empty">Episodes will appear here as they're published.</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- THE BOOK -->
+<section class="book-section" id="book">
+  <div class="book-img-wrap">
+    <img src="https://xpomntnlvreyxcwlsgnn.supabase.co/storage/v1/object/public/assets/book-cover.png"
+         alt="Tenacious Entrepreneur"
+         onerror="this.style.display='none'">
+  </div>
+  <div>
+    <p class="section-eyebrow">The Annual Book</p>
+    <h2 class="section-title">Tenacious Entrepreneur:<br>True Stories</h2>
+    <p class="section-body">Every year, the twelve most powerful stories from the podcast are compiled into the Tenacious Entrepreneur Annual Book Series. Your story, in print, in the hands of someone who needs it.</p>
+    <div class="book-features">
+      <div class="book-feature">
+        <div class="feature-dot"></div>
+        <div class="feature-text">Faith-driven stories of business failure and radical rebuilding</div>
+      </div>
+      <div class="book-feature">
+        <div class="feature-dot"></div>
+        <div class="feature-text">12 entrepreneurs per volume — the best of the year's podcast</div>
+      </div>
+      <div class="book-feature">
+        <div class="feature-dot"></div>
+        <div class="feature-text">Written by Joseph Dupont — entrepreneur, founder, survivor</div>
+      </div>
+      <div class="book-feature">
+        <div class="feature-dot"></div>
+        <div class="feature-text">Available in print, digital, and audio</div>
+      </div>
+    </div>
+    <div style="margin-top:2rem;">
+      <a href="https://www.amazon.com" target="_blank" class="btn-primary">Get the Book</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SUBMIT YOUR STORY -->
+<section id="submit" style="background:#0A0A0A;">
+  <div style="max-width:800px; margin:0 auto;">
+    <p class="section-eyebrow">Share Your Story</p>
+    <h2 class="section-title">Do you have a story that could change someone's life?</h2>
+    <p class="section-body">Submit it below. Our team reviews every submission. If your story is a fit, we'll reach out to feature you on the Tenacious Entrepreneur Podcast.</p>
+    <div class="form-wrap">
+      <form id="storyForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" placeholder="Joey Dupont" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="you@yourbusiness.com" required>
+          </div>
+          <div class="form-group">
+            <label for="business">Business Name</label>
+            <input type="text" id="business" placeholder="Your company or venture">
+          </div>
+          <div class="form-group">
+            <label for="title">Story Title</label>
+            <input type="text" id="title" placeholder="Give your story a title" required>
+          </div>
+          <div class="form-group full">
+            <label for="story">Your Story</label>
+            <textarea id="story" placeholder="Tell us your story of failure, resilience, and how you rebuilt. Be real. Be specific. That's what lands." required></textarea>
+          </div>
+        </div>
+        <button type="submit" class="form-submit" id="submitBtn">Submit My Story</button>
+        <div class="form-message" id="formMessage"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- AUDIO TOOL -->
+<section class="audio-section" id="audio">
+  <p class="section-eyebrow">Script to Audio</p>
+  <h2 class="section-title">Convert Your Script to Audio</h2>
+  <p class="section-body">Have a script ready? Submit it here and convert it to professional audio using ElevenLabs AI voice technology. Login required.</p>
+
+  <!-- Auth Gate -->
+  <div class="audio-gate" id="authGate">
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchTab('login')">Sign In</button>
+      <button class="auth-tab" onclick="switchTab('signup')">Create Account</button>
+    </div>
+
+    <div class="form-wrap" style="margin-top:0;">
+      <!-- Login -->
+      <div class="auth-form active" id="loginForm">
+        <div class="form-group" style="margin-bottom:1.2rem;">
+          <label>Email</label>
+          <input type="email" id="loginEmail" placeholder="your@email.com">
+        </div>
+        <div class="form-group" style="margin-bottom:1.2rem;">
+          <label>Password</label>
+          <input type="password" id="loginPassword" placeholder="Your password">
+        </div>
+        <button class="auth-btn" onclick="handleLogin()">Sign In</button>
+        <div class="form-message" id="loginMessage"></div>
+      </div>
+
+      <!-- Sign Up -->
+      <div class="auth-form" id="signupForm">
+        <div class="form-group" style="margin-bottom:1.2rem;">
+          <label>Full Name</label>
+          <input type="text" id="signupName" placeholder="Your full name">
+        </div>
+        <div class="form-group" style="margin-bottom:1.2rem;">
+          <label>Email</label>
+          <input type="email" id="signupEmail" placeholder="your@email.com">
+        </div>
+        <div class="form-group" style="margin-bottom:1.2rem;">
+          <label>Password</label>
+          <input type="password" id="signupPassword" placeholder="Create a password">
+        </div>
+        <button class="auth-btn" onclick="handleSignup()">Create Account</button>
+        <div class="form-message" id="signupMessage"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logged In Tool -->
+  <div class="audio-tool" id="audioTool">
+    <div class="user-bar">
+      <span class="user-email" id="userEmail"></span>
+      <button class="sign-out-btn" onclick="handleSignOut()">Sign Out</button>
+    </div>
+    <div class="elevenlabs-notice">
+      <strong>ElevenLabs Integration</strong> — Paste your ElevenLabs API key in the site settings to activate audio generation. Your scripts are saved and will process once the key is configured.
+    </div>
+    <div class="form-wrap" style="margin-top:0;">
+      <div class="form-group" style="margin-bottom:1.2rem;">
+        <label>Script Title</label>
+        <input type="text" id="scriptTitle" placeholder="Name your script">
+      </div>
+      <div class="form-group" style="margin-bottom:1.2rem;">
+        <label>Script Text</label>
+        <textarea id="scriptText" style="min-height:250px;" placeholder="Paste your full script here..."></textarea>
+      </div>
+      <button class="form-submit" onclick="submitAudioJob()">Submit for Audio Conversion</button>
+      <div class="form-message" id="audioMessage"></div>
+    </div>
+    <div class="jobs-list" id="jobsList"></div>
+  </div>
+</section>
+
+<!-- FREE TOOLS -->
+<div class="divider"></div>
+<section id="tools" style="background:#0A0A0A;">
+  <p class="section-eyebrow">Free Tools</p>
+  <h2 class="section-title">You lost the business.<br>Here's what's next.</h2>
+  <p class="section-body" style="margin-bottom:3.5rem;">These are real, free resources — no catch, no upsell. Know who you are, find funding to rebuild, and get the right people in your corner.</p>
+
+  <!-- CATEGORY 1: KNOW YOURSELF -->
+  <div class="tools-category">
+    <div class="tools-cat-header">
+      <div class="tools-cat-icon">🧭</div>
+      <div>
+        <div class="tools-cat-eyebrow">Category 1</div>
+        <div class="tools-cat-title">Know Yourself</div>
+        <div class="tools-cat-desc">Before you rebuild, you need to know who you are and what you were built for. These free assessments help you find your strengths, your personality, and the work that actually energizes you.</div>
+      </div>
+    </div>
+    <div class="tools-grid">
+      <a href="https://www.16personalities.com" target="_blank" class="tool-card">
+        <div class="tool-name">16Personalities</div>
+        <div class="tool-desc">Free Myers-Briggs style personality test. Find out how you think, lead, and relate to others.</div>
+        <div class="tool-link">Take the Test →</div>
+      </a>
+      <a href="https://www.gallup.com/cliftonstrengths/en/253715/34-cliftonstrengths-themes.aspx" target="_blank" class="tool-card">
+        <div class="tool-name">CliftonStrengths</div>
+        <div class="tool-desc">Discover your top natural talents. Know where to lean in and where to find the right people around you.</div>
+        <div class="tool-link">Explore Strengths →</div>
+      </a>
+      <a href="https://www.123test.com/career-test/" target="_blank" class="tool-card">
+        <div class="tool-name">Career Aptitude Test</div>
+        <div class="tool-desc">Free career discovery test. Find work you'd actually enjoy — aligned with how your mind works.</div>
+        <div class="tool-link">Find Your Path →</div>
+      </a>
+      <a href="https://www.truity.com/test/type-finder-personality-test-new" target="_blank" class="tool-card">
+        <div class="tool-name">TypeFinder (Truity)</div>
+        <div class="tool-desc">In-depth personality and career report. Understand your work style, leadership tendencies, and ideal environment.</div>
+        <div class="tool-link">Start Free →</div>
+      </a>
+      <a href="https://discpersonalitytesting.com/free-disc-test/" target="_blank" class="tool-card">
+        <div class="tool-name">Free DISC Assessment</div>
+        <div class="tool-desc">The DISC model is used by businesses worldwide. Understand how you communicate and lead under pressure.</div>
+        <div class="tool-link">Take DISC Test →</div>
+      </a>
+      <a href="https://www.viacharacter.org/survey/account/register" target="_blank" class="tool-card">
+        <div class="tool-name">VIA Character Strengths</div>
+        <div class="tool-desc">Free survey backed by positive psychology. Find your core character strengths — the ones that define you at your best.</div>
+        <div class="tool-link">Find Your Strengths →</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- CATEGORY 2: FIND FUNDING -->
+  <div class="tools-category">
+    <div class="tools-cat-header">
+      <div class="tools-cat-icon">💰</div>
+      <div>
+        <div class="tools-cat-eyebrow">Category 2</div>
+        <div class="tools-cat-title">Find Funding</div>
+        <div class="tools-cat-desc">Grants, loans, and financial resources specifically for entrepreneurs rebuilding after failure. Real money, real programs — most people don't know these exist.</div>
+      </div>
+    </div>
+    <div class="tools-grid">
+      <a href="https://www.grants.gov" target="_blank" class="tool-card">
+        <div class="tool-name">Grants.gov</div>
+        <div class="tool-desc">The official U.S. federal grant database. Search thousands of programs by industry, location, and eligibility.</div>
+        <div class="tool-link">Search Grants →</div>
+      </a>
+      <a href="https://www.sba.gov/funding-programs/loans" target="_blank" class="tool-card">
+        <div class="tool-name">SBA Loan Programs</div>
+        <div class="tool-desc">Small Business Administration loans with favorable terms. Even after failure, these programs are designed for entrepreneurs like you.</div>
+        <div class="tool-link">Explore SBA Loans →</div>
+      </a>
+      <a href="https://www.score.org" target="_blank" class="tool-card">
+        <div class="tool-name">SCORE Mentorship</div>
+        <div class="tool-desc">Free mentorship from retired executives and successful entrepreneurs. Get matched with someone who has been where you are.</div>
+        <div class="tool-link">Find a Mentor →</div>
+      </a>
+      <a href="https://www.opportunity.business.gov" target="_blank" class="tool-card">
+        <div class="tool-name">Business USA</div>
+        <div class="tool-desc">Federal resource hub for small businesses. Find funding, licenses, permits, and programs all in one place.</div>
+        <div class="tool-link">Find Resources →</div>
+      </a>
+      <a href="https://www.kiva.org/borrow" target="_blank" class="tool-card">
+        <div class="tool-name">Kiva Microloans</div>
+        <div class="tool-desc">0% interest microloans up to $15,000 for entrepreneurs. Crowdfunded by real people who believe in your comeback.</div>
+        <div class="tool-link">Apply for Kiva →</div>
+      </a>
+      <a href="https://www.accion.org" target="_blank" class="tool-card">
+        <div class="tool-name">Accion Opportunity Fund</div>
+        <div class="tool-desc">Small business loans and coaching for entrepreneurs who have been turned down by traditional banks.</div>
+        <div class="tool-link">Get Funded →</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- CATEGORY 3: REBUILD -->
+  <div class="tools-category">
+    <div class="tools-cat-header">
+      <div class="tools-cat-icon">🔨</div>
+      <div>
+        <div class="tools-cat-eyebrow">Category 3</div>
+        <div class="tools-cat-title">Rebuild</div>
+        <div class="tools-cat-desc">Free tools to help you put the pieces back together. Business plans, legal structure, financial recovery — step by step.</div>
+      </div>
+    </div>
+    <div class="tools-grid">
+      <a href="https://www.sba.gov/business-guide/plan-your-business/write-your-business-plan" target="_blank" class="tool-card">
+        <div class="tool-name">SBA Business Plan Tool</div>
+        <div class="tool-desc">Free step-by-step business plan builder from the SBA. Walks you through every section with real guidance.</div>
+        <div class="tool-link">Build Your Plan →</div>
+      </a>
+      <a href="https://www.irs.gov/businesses/small-businesses-self-employed/choose-a-business-structure" target="_blank" class="tool-card">
+        <div class="tool-name">IRS Business Structure Guide</div>
+        <div class="tool-desc">Sole prop, LLC, S-Corp — understand the difference and choose the right structure for your next venture.</div>
+        <div class="tool-link">Choose Your Structure →</div>
+      </a>
+      <a href="https://consumer.gov/managing-your-money/rebuilding-after-financial-setback" target="_blank" class="tool-card">
+        <div class="tool-name">Financial Recovery Guide</div>
+        <div class="tool-desc">Federal consumer resource for rebuilding your personal finances after a setback. Credit, debt, and cash flow basics.</div>
+        <div class="tool-link">Start Recovering →</div>
+      </a>
+      <a href="https://www.nfcc.org" target="_blank" class="tool-card">
+        <div class="tool-name">NFCC Credit Counseling</div>
+        <div class="tool-desc">Free and low-cost credit counseling from nonprofit advisors. Get a plan for debt recovery and financial stability.</div>
+        <div class="tool-link">Get Counseling →</div>
+      </a>
+      <a href="https://www.legalzoom.com/articles/how-to-start-a-business" target="_blank" class="tool-card">
+        <div class="tool-name">LegalZoom Start Guide</div>
+        <div class="tool-desc">Free guides on how to legally structure and register your next business — without the expensive attorney fees.</div>
+        <div class="tool-link">Read the Guide →</div>
+      </a>
+      <a href="https://www.mentorworks.ca/blog/government-funding/business-failure/" target="_blank" class="tool-card">
+        <div class="tool-name">After Business Failure Guide</div>
+        <div class="tool-desc">A practical guide on what to do after a business failure — legal obligations, next steps, and how to move forward.</div>
+        <div class="tool-link">Read the Guide →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<div class="divider"></div>
+<section id="community" style="background:#0A0A0A;">
+  <p class="section-eyebrow">The Community</p>
+  <h2 class="section-title">Your comeback is someone else's road map.</h2>
+  <p class="section-body" style="margin-bottom:3rem;">Create your profile. Share your story. Connect with entrepreneurs who have the skills you need — and need the skills you have. Failure is the entry fee. Resilience is the currency.</p>
+
+  <!-- SEARCH BAR -->
+  <div class="community-search-wrap">
+    <input type="text" id="skillSearch" placeholder="Search by skill, industry, or name..." class="community-search">
+    <button onclick="searchProfiles()" class="community-search-btn">Search</button>
+  </div>
+
+  <!-- PROFILE GRID -->
+  <div class="profile-grid" id="profileGrid">
+    <div class="profiles-empty">Be the first to create a profile and share your story.</div>
+  </div>
+
+  <!-- CREATE / EDIT PROFILE -->
+  <div style="margin-top:4rem;">
+    <div id="profileAuthGate" style="text-align:center;">
+      <p style="color:var(--stone);margin-bottom:1.5rem;font-size:0.95rem;">Sign in to create your profile and join the community.</p>
+      <a href="#audio" class="btn-primary" onclick="document.getElementById('audio').scrollIntoView()">Sign In / Create Account</a>
+    </div>
+
+    <div id="profileEditor" style="display:none;">
+      <div class="profile-editor-wrap">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:2rem;color:var(--white);">Your Profile</h3>
+
+        <!-- TABS -->
+        <div class="profile-tabs">
+          <button class="profile-tab active" onclick="switchProfileTab('story')">My Story</button>
+          <button class="profile-tab" onclick="switchProfileTab('book')">My Book</button>
+          <button class="profile-tab" onclick="switchProfileTab('skills')">My Skills</button>
+          <button class="profile-tab" onclick="switchProfileTab('info')">My Info</button>
+          <button class="profile-tab" onclick="switchProfileTab('learn')" style="color:#90ee90;">🔒 Learn Skills</button>
+        </div>
+
+        <!-- MY STORY TAB -->
+        <div class="profile-tab-content active" id="tab-story">
+          <div class="form-grid" style="margin-bottom:1.2rem;">
+            <div class="form-group full">
+              <label>Story Title</label>
+              <input type="text" id="p_story_title" placeholder="Give your comeback story a title">
+            </div>
+            <div class="form-group full">
+              <label>Your Full Story</label>
+              <textarea id="p_story_body" style="min-height:300px;" placeholder="Tell the full version here. The failure, the rock bottom, the moment things turned, and where you are now. Be real — that's what connects."></textarea>
+            </div>
+          </div>
+          <label style="display:flex;align-items:center;gap:0.8rem;color:var(--stone);font-size:0.85rem;cursor:pointer;">
+            <input type="checkbox" id="p_story_published" style="width:auto;"> Make my story public on my profile
+          </label>
+        </div>
+
+        <!-- MY BOOK TAB -->
+        <div class="profile-tab-content" id="tab-book">
+          <div class="form-grid">
+            <div class="form-group full">
+              <label>Book Title</label>
+              <input type="text" id="p_book_title" placeholder="The title of your book">
+            </div>
+            <div class="form-group full">
+              <label>Book Description</label>
+              <textarea id="p_book_description" style="min-height:140px;" placeholder="What is your book about? Who is it for?"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Book Cover URL</label>
+              <input type="url" id="p_book_cover_url" placeholder="Link to your book cover image">
+            </div>
+            <div class="form-group">
+              <label>Buy Link (Amazon, etc.)</label>
+              <input type="url" id="p_book_buy_link" placeholder="Where can people buy it?">
+            </div>
+          </div>
+          <div style="margin-top:1.5rem;padding:1.2rem 1.5rem;background:rgba(200,149,42,0.08);border:1px solid rgba(200,149,42,0.2);border-radius:4px;">
+            <p style="font-size:0.85rem;color:var(--stone);margin-bottom:0.8rem;">Haven't written your book yet?</p>
+            <a href="mailto:joey@tenaciousentrepreneur.com?subject=I need help writing my book" class="btn-primary" style="font-size:0.78rem;padding:0.7rem 1.4rem;">Get Help from Tenacious Publishing →</a>
+          </div>
+        </div>
+
+        <!-- MY SKILLS TAB -->
+        <div class="profile-tab-content" id="tab-skills">
+          <p style="color:var(--stone);font-size:0.88rem;margin-bottom:1.5rem;line-height:1.7;">List what you know how to do — and what you're looking for. Other members search these skills to find people like you.</p>
+          <div id="skillsList" style="margin-bottom:1.5rem;"></div>
+          <div class="skill-add-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Skill / Expertise</label>
+                <input type="text" id="new_skill_name" placeholder="e.g. Restaurant Operations">
+              </div>
+              <div class="form-group">
+                <label>Industry</label>
+                <input type="text" id="new_skill_industry" placeholder="e.g. Food & Beverage">
+              </div>
+              <div class="form-group">
+                <label>Years of Experience</label>
+                <input type="number" id="new_skill_years" placeholder="e.g. 15" min="0" max="50">
+              </div>
+              <div class="form-group">
+                <label>I am...</label>
+                <select id="new_skill_type" style="background:#1A1A1A;border:1px solid rgba(200,149,42,0.2);border-radius:2px;padding:0.85rem 1rem;color:var(--white);font-family:'Inter',sans-serif;font-size:0.95rem;">
+                  <option value="offering">Offering this skill</option>
+                  <option value="seeking">Seeking this skill</option>
+                  <option value="both">Both offering & seeking</option>
+                </select>
+              </div>
+              <div class="form-group full">
+                <label>Description (optional)</label>
+                <input type="text" id="new_skill_desc" placeholder="Brief description of your experience or what you need">
+              </div>
+            </div>
+            <button onclick="addSkill()" class="btn-primary" style="margin-top:1rem;">Add Skill</button>
+          </div>
+          <div style="margin-top:2rem;padding:1.2rem 1.5rem;background:rgba(200,149,42,0.08);border:1px solid rgba(200,149,42,0.2);border-radius:4px;">
+            <p style="font-size:0.85rem;color:var(--stone);margin-bottom:0.8rem;">Want to build your skills on stage?</p>
+            <a href="mailto:joey@tenaciousentrepreneur.com?subject=I need speaker coaching" class="btn-primary" style="font-size:0.78rem;padding:0.7rem 1.4rem;">Apply for Speaker Coaching →</a>
+          </div>
+        </div>
+
+        <!-- MY INFO TAB -->
+        <div class="profile-tab-content" id="tab-info">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" id="p_full_name" placeholder="Your full name">
+            </div>
+            <div class="form-group">
+              <label>Username (for your profile URL)</label>
+              <input type="text" id="p_username" placeholder="joey-dupont">
+            </div>
+            <div class="form-group full">
+              <label>Headline</label>
+              <input type="text" id="p_headline" placeholder="e.g. Serial Entrepreneur | Author | Speaker | Rebuilder">
+            </div>
+            <div class="form-group">
+              <label>Location</label>
+              <input type="text" id="p_location" placeholder="City, State">
+            </div>
+            <div class="form-group">
+              <label>Profile Photo URL</label>
+              <input type="url" id="p_photo_url" placeholder="Link to your headshot">
+            </div>
+            <div class="form-group">
+              <label>LinkedIn</label>
+              <input type="url" id="p_linkedin" placeholder="https://linkedin.com/in/yourname">
+            </div>
+            <div class="form-group">
+              <label>Website</label>
+              <input type="url" id="p_website" placeholder="https://yoursite.com">
+            </div>
+            <div class="form-group">
+              <label>Twitter / X</label>
+              <input type="url" id="p_twitter" placeholder="https://twitter.com/yourhandle">
+            </div>
+            <div class="form-group">
+              <label>Instagram</label>
+              <input type="url" id="p_instagram" placeholder="https://instagram.com/yourhandle">
+            </div>
+            <div class="form-group">
+              <label>Speaking Topics</label>
+              <input type="text" id="p_speaking_topics" placeholder="e.g. Business failure, Faith & entrepreneurship">
+            </div>
+          </div>
+          <label style="display:flex;align-items:center;gap:0.8rem;color:var(--stone);font-size:0.85rem;cursor:pointer;margin-top:1.2rem;">
+            <input type="checkbox" id="p_speaking" style="width:auto;"> I'm available for speaking engagements
+          </label>
+        </div>
+
+        <!-- LEARN SKILLS TAB (PRIVATE) -->
+        <div class="profile-tab-content" id="tab-learn">
+          <div style="background:rgba(0,150,0,0.08);border:1px solid rgba(0,200,0,0.15);border-radius:4px;padding:1rem 1.5rem;margin-bottom:2rem;">
+            <p style="font-size:0.82rem;color:#90ee90;">🔒 This section is private — only you can see it. Use it to track what you're learning and where you want to grow.</p>
+          </div>
+
+          <!-- AI & TECH -->
+          <div class="learn-category">
+            <div class="learn-cat-title">🤖 AI & Technology</div>
+            <div class="learn-cat-desc">The world is moving to AI. These are free programs — some even pay you to learn.</div>
+            <div class="learn-grid">
+              <a href="https://ai.meta.com/education/" target="_blank" class="learn-card">
+                <div class="learn-card-name">Meta AI Learning</div>
+                <div class="learn-card-desc">Meta is actively funding AI education and offering programs to train people to build AI centers. Free resources direct from Meta.</div>
+                <div class="learn-card-tag">Free · Meta</div>
+              </a>
+              <a href="https://grow.google/certificates/" target="_blank" class="learn-card">
+                <div class="learn-card-name">Google Career Certificates</div>
+                <div class="learn-card-desc">Google's professional certificate programs in AI, data analytics, UX, IT support, and more. Many are free or low-cost with financial aid.</div>
+                <div class="learn-card-tag">Free / Low Cost · Google</div>
+              </a>
+              <a href="https://learn.microsoft.com/en-us/training/" target="_blank" class="learn-card">
+                <div class="learn-card-name">Microsoft Learn</div>
+                <div class="learn-card-desc">Free training paths for AI, Azure, cloud computing, and data science directly from Microsoft. Industry-recognized certifications.</div>
+                <div class="learn-card-tag">Free · Microsoft</div>
+              </a>
+              <a href="https://www.fast.ai" target="_blank" class="learn-card">
+                <div class="learn-card-name">fast.ai</div>
+                <div class="learn-card-desc">Practical deep learning for non-experts. Used by thousands of entrepreneurs and career changers to get into AI fast.</div>
+                <div class="learn-card-tag">Free · fast.ai</div>
+              </a>
+              <a href="https://www.coursera.org/google-certificates" target="_blank" class="learn-card">
+                <div class="learn-card-name">Coursera Free Tier</div>
+                <div class="learn-card-desc">Audit thousands of courses from top universities for free. AI, machine learning, business, leadership — all available.</div>
+                <div class="learn-card-tag">Free Audit · Coursera</div>
+              </a>
+              <a href="https://huggingface.co/learn" target="_blank" class="learn-card">
+                <div class="learn-card-name">Hugging Face AI Courses</div>
+                <div class="learn-card-desc">Free hands-on AI courses from the leading open-source AI platform. Build real AI tools while you learn.</div>
+                <div class="learn-card-tag">Free · Hugging Face</div>
+              </a>
+            </div>
+          </div>
+
+          <!-- BUSINESS REBUILDING -->
+          <div class="learn-category">
+            <div class="learn-cat-title">🏗️ Business Rebuilding</div>
+            <div class="learn-cat-desc">Free education to help you build smarter the second time around.</div>
+            <div class="learn-grid">
+              <a href="https://www.sba.gov/learning-center" target="_blank" class="learn-card">
+                <div class="learn-card-name">SBA Learning Center</div>
+                <div class="learn-card-desc">Free online courses on starting, managing, and growing a business. Built specifically for small business owners.</div>
+                <div class="learn-card-tag">Free · SBA</div>
+              </a>
+              <a href="https://www.score.org/education-events" target="_blank" class="learn-card">
+                <div class="learn-card-name">SCORE Workshops</div>
+                <div class="learn-card-desc">Free live and recorded workshops on business planning, marketing, finance, and more from experienced mentors.</div>
+                <div class="learn-card-tag">Free · SCORE</div>
+              </a>
+              <a href="https://ocw.mit.edu/courses/sloan-school-of-management/" target="_blank" class="learn-card">
+                <div class="learn-card-name">MIT OpenCourseWare (Business)</div>
+                <div class="learn-card-desc">Free MBA-level courses from MIT's Sloan School of Management. Finance, strategy, entrepreneurship — no tuition required.</div>
+                <div class="learn-card-tag">Free · MIT</div>
+              </a>
+              <a href="https://www.edx.org/learn/business" target="_blank" class="learn-card">
+                <div class="learn-card-name">edX Business Courses</div>
+                <div class="learn-card-desc">Audit business courses from Harvard, Wharton, and other top schools for free. Pay only if you want the certificate.</div>
+                <div class="learn-card-tag">Free Audit · edX</div>
+              </a>
+            </div>
+          </div>
+
+          <!-- MARKETING & SOCIAL -->
+          <div class="learn-category">
+            <div class="learn-cat-title">📣 Marketing & Social Media</div>
+            <div class="learn-cat-desc">Learn to build an audience and market your next venture without an agency.</div>
+            <div class="learn-grid">
+              <a href="https://www.facebook.com/business/learn" target="_blank" class="learn-card">
+                <div class="learn-card-name">Meta Blueprint</div>
+                <div class="learn-card-desc">Free digital marketing courses from Meta covering Facebook, Instagram, and ads. Industry certifications available.</div>
+                <div class="learn-card-tag">Free · Meta</div>
+              </a>
+              <a href="https://academy.hubspot.com" target="_blank" class="learn-card">
+                <div class="learn-card-name">HubSpot Academy</div>
+                <div class="learn-card-desc">Free certifications in marketing, sales, content, SEO, and email. One of the most respected free learning platforms in business.</div>
+                <div class="learn-card-tag">Free · HubSpot</div>
+              </a>
+              <a href="https://learndigital.withgoogle.com" target="_blank" class="learn-card">
+                <div class="learn-card-name">Google Digital Garage</div>
+                <div class="learn-card-desc">Free digital marketing fundamentals certified by Google. Perfect for rebuilding entrepreneurs who need to market themselves.</div>
+                <div class="learn-card-tag">Free · Google</div>
+              </a>
+            </div>
+          </div>
+
+          <!-- CODING & NO-CODE -->
+          <div class="learn-category">
+            <div class="learn-cat-title">💻 Coding & No-Code Tools</div>
+            <div class="learn-cat-desc">You don't have to hire a developer to build your next idea.</div>
+            <div class="learn-grid">
+              <a href="https://www.freecodecamp.org" target="_blank" class="learn-card">
+                <div class="learn-card-name">freeCodeCamp</div>
+                <div class="learn-card-desc">Completely free coding education. Web development, data science, machine learning — 3,000+ hours of curriculum at no cost.</div>
+                <div class="learn-card-tag">Free · freeCodeCamp</div>
+              </a>
+              <a href="https://university.webflow.com" target="_blank" class="learn-card">
+                <div class="learn-card-name">Webflow University</div>
+                <div class="learn-card-desc">Build professional websites without code. Webflow University teaches you how — free courses, real skills.</div>
+                <div class="learn-card-tag">Free · Webflow</div>
+              </a>
+              <a href="https://www.codecademy.com/catalog/language/python" target="_blank" class="learn-card">
+                <div class="learn-card-name">Codecademy (Free Tier)</div>
+                <div class="learn-card-desc">Learn Python, JavaScript, SQL, and more. The free tier gives you real programming skills without a subscription.</div>
+                <div class="learn-card-tag">Free Tier · Codecademy</div>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <button onclick="saveProfile()" class="form-submit" style="margin-top:2rem;">Save Profile</button>
+        <div class="form-message" id="profileMessage"></div>
+
+        <!-- PROFILE PREVIEW LINK -->
+        <div id="profileLinkWrap" style="display:none;margin-top:1rem;padding:1rem 1.5rem;background:rgba(200,149,42,0.08);border:1px solid rgba(200,149,42,0.2);border-radius:4px;">
+          <p style="font-size:0.82rem;color:var(--stone);margin-bottom:0.4rem;">Your public profile URL (use this for your QR code):</p>
+          <p id="profileLink" style="font-size:0.9rem;color:var(--red);font-weight:600;"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOB BOARD -->
+<div class="divider"></div>
+<section id="jobs" style="background:#1A1A1A;">
+  <p class="section-eyebrow">Job Board</p>
+  <h2 class="section-title">Find your next chapter.</h2>
+  <p class="section-body" style="margin-bottom:3rem;">Jobs posted by our community — plus live listings from ZipRecruiter matched to your skills. Your experience didn't disappear when the business did. Someone needs exactly what you know.</p>
+
+  <!-- JOB SEARCH -->
+  <div class="job-search-wrap">
+    <input type="text" id="jobKeyword" placeholder="Job title, skill, or keyword..." class="community-search">
+    <input type="text" id="jobLocation" placeholder="City or state..." class="community-search" style="max-width:220px;">
+    <button onclick="searchJobs()" class="community-search-btn">Find Jobs</button>
+  </div>
+
+  <!-- JOB TABS -->
+  <div class="job-tabs">
+    <button class="job-tab active" onclick="switchJobTab('external')">🔍 ZipRecruiter Jobs</button>
+    <button class="job-tab" onclick="switchJobTab('community')">🤝 Community Jobs</button>
+    <button class="job-tab" onclick="switchJobTab('post')">+ Post a Job</button>
+  </div>
+
+  <!-- ZIPRECRUITER JOBS -->
+  <div class="job-tab-content active" id="jobtab-external">
+    <div class="ziprecruiter-notice">
+      <p>Jobs powered by <strong>ZipRecruiter</strong> — updated daily, matched to skills in our community.</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PASTE YOUR ZIPRECRUITER AFFILIATE XML FEED URL BELOW         -->
+    <!-- Replace YOUR_ZIPRECRUITER_XML_FEED_URL with your actual URL  -->
+    <!-- Get it from: ziprecruiter.com/affiliate                      -->
+    <!-- ============================================================ -->
+    <div id="zipJobsGrid" class="jobs-grid">
+      <div class="jobs-loading">
+        <p style="color:var(--stone);text-align:center;padding:3rem;font-style:italic;font-family:'Playfair Display',serif;">
+          Connect your ZipRecruiter affiliate feed to display live job listings here.<br>
+          <span style="font-size:0.82rem;opacity:0.7;">Paste your XML feed URL to activate.</span>
+        </p>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:2rem;">
+      <a id="zipAffiliateLink" href="https://www.ziprecruiter.com" target="_blank" class="btn-primary">
+        Search All Jobs on ZipRecruiter →
+      </a>
+      <!-- REPLACE href above with your ZipRecruiter affiliate link -->
+    </div>
+  </div>
+
+  <!-- COMMUNITY JOBS -->
+  <div class="job-tab-content" id="jobtab-community">
+    <div id="communityJobsGrid" class="jobs-grid">
+      <div class="jobs-empty">No community jobs posted yet. Be the first to post an opportunity.</div>
+    </div>
+  </div>
+
+  <!-- POST A JOB -->
+  <div class="job-tab-content" id="jobtab-post">
+    <div id="postJobAuthGate" style="text-align:center;padding:2rem;">
+      <p style="color:var(--stone);margin-bottom:1.5rem;">Sign in to post a job for the community.</p>
+      <a href="#audio" class="btn-primary">Sign In to Post</a>
+    </div>
+    <div id="postJobForm" style="display:none;">
+      <div class="form-wrap" style="margin-top:0;max-width:800px;">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Job Title</label>
+            <input type="text" id="job_title" placeholder="e.g. Operations Manager">
+          </div>
+          <div class="form-group">
+            <label>Company Name</label>
+            <input type="text" id="job_company" placeholder="Your company or venture">
+          </div>
+          <div class="form-group">
+            <label>Location</label>
+            <input type="text" id="job_location" placeholder="City, State or Remote">
+          </div>
+          <div class="form-group">
+            <label>Job Type</label>
+            <select id="job_type" style="background:#0A0A0A;border:1px solid rgba(200,149,42,0.2);border-radius:2px;padding:0.85rem 1rem;color:var(--white);font-family:'Inter',sans-serif;font-size:0.95rem;outline:none;">
+              <option value="full-time">Full-Time</option>
+              <option value="part-time">Part-Time</option>
+              <option value="contract">Contract</option>
+              <option value="freelance">Freelance</option>
+              <option value="internship">Internship</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Industry</label>
+            <input type="text" id="job_industry" placeholder="e.g. Food & Beverage, Tech, Sales">
+          </div>
+          <div class="form-group">
+            <label>Salary Range</label>
+            <input type="text" id="job_salary" placeholder="e.g. $50k-$70k or Negotiable">
+          </div>
+          <div class="form-group full">
+            <label>Job Description</label>
+            <textarea id="job_description" style="min-height:200px;" placeholder="Describe the role, responsibilities, and what you're looking for..."></textarea>
+          </div>
+          <div class="form-group full">
+            <label>Skills Required (comma separated)</label>
+            <input type="text" id="job_skills" placeholder="e.g. Sales, Operations, Leadership, QuickBooks">
+          </div>
+          <div class="form-group">
+            <label>Apply URL (optional)</label>
+            <input type="url" id="job_apply_url" placeholder="Link to apply online">
+          </div>
+          <div class="form-group">
+            <label>Apply Email (optional)</label>
+            <input type="email" id="job_apply_email" placeholder="Email to send applications">
+          </div>
+        </div>
+        <button onclick="postJob()" class="form-submit" style="margin-top:1rem;">Post This Job</button>
+        <div class="form-message" id="jobPostMessage"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">TENACIOUS <span>ENTREPRENEUR</span></div>
+      <p class="footer-tagline">Because failure isn't the end.<br>It's just the beginning.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <a href="#movement">The Movement</a>
+      <a href="#podcast">The Podcast</a>
+      <a href="#book">The Book</a>
+      <a href="#submit">Submit Your Story</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="#tools">Free Tools</a>
+      <a href="#audio">Script to Audio</a>
+      <a href="mailto:joey@tenaciousentrepreneur.com">Contact Us</a>
+      <a href="#">Tenacious Entrepreneur Fund</a>
+      <a href="#">Publishing Services</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Tenacious Entrepreneur · tenaciousentrepreneur.com · All rights reserved
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script type="module">
+  // ============================================================
+  // SUPABASE CONFIG
+  // ============================================================
+  const SUPABASE_URL = 'https://xpomntnlvreyxcwlsgnn.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhwb21udG5sdnJleXhjd2xzZ25uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0ODQ0MTMsImV4cCI6MjA5ODA2MDQxM30.VA5xuw7MWxvwnhBPKY7Iasm5gRfOmBxTxIs83KWO6M4';
+
+  // ============================================================
+  // ELEVENLABS CONFIG — PASTE YOUR API KEY HERE WHEN READY
+  // ============================================================
+  const ELEVENLABS_API_KEY = 'YOUR_ELEVENLABS_API_KEY_HERE';
+  const ELEVENLABS_VOICE_ID = 'YOUR_VOICE_ID_HERE';
+
+  const headers = {
+    'Content-Type': 'application/json',
+    'apikey': SUPABASE_KEY,
+    'Authorization': `Bearer ${SUPABASE_KEY}`
+  };
+
+  let currentSession = null;
+
+  // ============================================================
+  // AUTH STATE
+  // ============================================================
+  async function checkSession() {
+    try {
+      const res = await fetch(`${SUPABASE_URL}/auth/v1/user`, { headers });
+      if (res.ok) {
+        const user = await res.json();
+        if (user?.email) {
+          currentSession = user;
+          showAudioTool(user.email);
+        }
+      }
+    } catch(e) {}
+  }
+
+  function showAudioTool(email) {
+    document.getElementById('authGate').style.display = 'none';
+    document.getElementById('audioTool').classList.add('visible');
+    document.getElementById('userEmail').textContent = email;
+    loadAudioJobs();
+  }
+
+  // ============================================================
+  // LOAD PUBLISHED EPISODES
+  // ============================================================
+  async function loadEpisodes() {
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/tenacious_episodes?status=eq.published&order=published_at.desc&limit=6`,
+        { headers }
+      );
+      const episodes = await res.json();
+      const grid = document.getElementById('episodesGrid');
+      if (!episodes.length) return;
+      grid.innerHTML = episodes.map(ep => `
+        <div class="podcast-card">
+          <div class="episode-num">Episode ${ep.episode_number || '—'}</div>
+          <div class="episode-title">${ep.title}</div>
+          <div class="episode-guest">with ${ep.guest_name}</div>
+        </div>
+      `).join('');
+    } catch(e) {}
+  }
+
+  // ============================================================
+  // SUBMIT STORY
+  // ============================================================
+  document.getElementById('storyForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const msg = document.getElementById('formMessage');
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+    msg.className = 'form-message';
+    msg.style.display = 'none';
+
+    const body = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      business_name: document.getElementById('business').value,
+      story_title: document.getElementById('title').value,
+      story_body: document.getElementById('story').value,
+      status: 'new'
+    };
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/tenacious_submissions`, {
+        method: 'POST',
+        headers: { ...headers, 'Prefer': 'return=minimal' },
+        body: JSON.stringify(body)
+      });
+
+      if (res.ok || res.status === 201) {
+        msg.className = 'form-message success';
+        msg.textContent = "Thank you — your story has been submitted. If it's a fit, our team will reach out.";
+        document.getElementById('storyForm').reset();
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch(err) {
+      msg.className = 'form-message error';
+      msg.textContent = 'Something went wrong. Please try again or email us directly.';
+    }
+    btn.disabled = false;
+    btn.textContent = 'Submit My Story';
+  });
+
+  // ============================================================
+  // AUTH
+  // ============================================================
+  window.switchTab = (tab) => {
+    document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+    document.querySelector(`[onclick="switchTab('${tab}')"]`).classList.add('active');
+    document.getElementById(`${tab}Form`).classList.add('active');
+  };
+
+  window.handleLogin = async () => {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    const msg = document.getElementById('loginMessage');
+    msg.className = 'form-message';
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (data.access_token) {
+        currentSession = data.user;
+        showAudioTool(email);
+      } else {
+        msg.className = 'form-message error';
+        msg.textContent = data.error_description || 'Invalid email or password.';
+      }
+    } catch(e) {
+      msg.className = 'form-message error';
+      msg.textContent = 'Login failed. Please try again.';
+    }
+  };
+
+  window.handleSignup = async () => {
+    const name = document.getElementById('signupName').value;
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+    const msg = document.getElementById('signupMessage');
+    msg.className = 'form-message';
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/auth/v1/signup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY },
+        body: JSON.stringify({ email, password, data: { full_name: name } })
+      });
+      const data = await res.json();
+      if (data.id) {
+        msg.className = 'form-message success';
+        msg.textContent = 'Account created! Check your email to confirm, then sign in.';
+      } else {
+        msg.className = 'form-message error';
+        msg.textContent = data.error_description || 'Signup failed. Try again.';
+      }
+    } catch(e) {
+      msg.className = 'form-message error';
+      msg.textContent = 'Signup failed. Please try again.';
+    }
+  };
+
+  window.handleSignOut = () => {
+    currentSession = null;
+    document.getElementById('authGate').style.display = 'block';
+    document.getElementById('audioTool').classList.remove('visible');
+  };
+
+  // ============================================================
+  // AUDIO JOBS
+  // ============================================================
+  window.submitAudioJob = async () => {
+    if (!currentSession) return;
+    const title = document.getElementById('scriptTitle').value;
+    const text = document.getElementById('scriptText').value;
+    const msg = document.getElementById('audioMessage');
+    if (!text.trim()) {
+      msg.className = 'form-message error';
+      msg.textContent = 'Please enter your script text.';
+      return;
+    }
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/tenacious_audio_jobs`, {
+        method: 'POST',
+        headers: {
+          ...headers,
+          'Authorization': `Bearer ${currentSession.access_token || SUPABASE_KEY}`,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          user_id: currentSession.id,
+          submitter_email: currentSession.email,
+          script_title: title,
+          script_text: text,
+          status: 'queued'
+        })
+      });
+
+      if (res.ok || res.status === 201) {
+        msg.className = 'form-message success';
+        msg.textContent = 'Script submitted for audio conversion. You\'ll be notified when it\'s ready.';
+        document.getElementById('scriptTitle').value = '';
+        document.getElementById('scriptText').value = '';
+        loadAudioJobs();
+      } else {
+        throw new Error();
+      }
+    } catch(e) {
+      msg.className = 'form-message error';
+      msg.textContent = 'Submission failed. Please try again.';
+    }
+  };
+
+  async function loadAudioJobs() {
+    if (!currentSession) return;
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/tenacious_audio_jobs?order=created_at.desc&limit=10`,
+        {
+          headers: {
+            ...headers,
+            'Authorization': `Bearer ${currentSession.access_token || SUPABASE_KEY}`
+          }
+        }
+      );
+      const jobs = await res.json();
+      const list = document.getElementById('jobsList');
+      if (!jobs.length) { list.innerHTML = ''; return; }
+      list.innerHTML = `<h4 style="font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--stone);margin-bottom:1rem;">Your Submissions</h4>` +
+        jobs.map(j => `
+          <div class="job-item">
+            <div class="job-title">${j.script_title || 'Untitled Script'}</div>
+            <span class="job-status status-${j.status}">${j.status}</span>
+          </div>
+        `).join('');
+    } catch(e) {}
+  }
+
+  // ============================================================
+  // ADZUNA JOB BOARD CONFIG
+  // ============================================================
+  // Sign up free at: developer.adzuna.com
+  // Takes 5 minutes — no approval needed
+  const ADZUNA_APP_ID = 'YOUR_ADZUNA_APP_ID';
+  const ADZUNA_API_KEY = 'YOUR_ADZUNA_API_KEY';
+  const ADZUNA_COUNTRY = 'us';
+
+  // ============================================================
+  // JOB BOARD TABS
+  // ============================================================
+  window.switchJobTab = (tab) => {
+    document.querySelectorAll('.job-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.job-tab-content').forEach(f => f.classList.remove('active'));
+    document.querySelector(`[onclick="switchJobTab('${tab}')"]`).classList.add('active');
+    document.getElementById(`jobtab-${tab}`).classList.add('active');
+    if (tab === 'community') loadCommunityJobs();
+    if (tab === 'post') checkJobPostAuth();
+  };
+
+  // ============================================================
+  // ADZUNA JOBS
+  // ============================================================
+  window.searchJobs = async () => {
+    const keyword = document.getElementById('jobKeyword').value || 'entrepreneur';
+    const location = document.getElementById('jobLocation').value || '';
+    const grid = document.getElementById('zipJobsGrid');
+    grid.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--stone);">Searching jobs...</div>';
+
+    // Switch to external tab
+    switchJobTab('external');
+
+    if (ADZUNA_APP_ID === 'YOUR_ADZUNA_APP_ID') {
+      grid.innerHTML = `
+        <div style="grid-column:1/-1;text-align:center;padding:3rem;">
+          <p style="color:var(--stone);font-family:'Playfair Display',serif;font-style:italic;margin-bottom:1rem;">
+            Job listings will appear here once your Adzuna API keys are added.
+          </p>
+          <p style="font-size:0.82rem;color:var(--stone);opacity:0.7;">
+            Sign up free at <strong style="color:var(--red);">developer.adzuna.com</strong> — paste your App ID and API Key to activate.
+          </p>
+        </div>`;
+      return;
+    }
+
+    try {
+      const query = `${keyword}${location ? ' ' + location : ''}`;
+      const url = `https://api.adzuna.com/v1/api/jobs/${ADZUNA_COUNTRY}/search/1?app_id=${ADZUNA_APP_ID}&app_key=${ADZUNA_API_KEY}&results_per_page=12&what=${encodeURIComponent(keyword)}${location ? '&where=' + encodeURIComponent(location) : ''}&content-type=application/json`;
+
+      const res = await fetch(url);
+      const data = await res.json();
+      const jobs = data.results || [];
+
+      if (!jobs.length) {
+        grid.innerHTML = '<div class="jobs-empty">No jobs found. Try different keywords.</div>';
+        return;
+      }
+
+      grid.innerHTML = jobs.map(job => `
+        <a href="${job.redirect_url}" target="_blank" class="job-card">
+          <div class="job-card-title">${job.title}</div>
+          <div class="job-card-company">${job.company?.display_name || 'Company'}</div>
+          <div class="job-card-meta">
+            <span>📍 ${job.location?.display_name || 'Location varies'}</span>
+            ${job.salary_min ? `<span>💰 $${Math.round(job.salary_min/1000)}k${job.salary_max ? '–$'+Math.round(job.salary_max/1000)+'k' : '+'}</span>` : ''}
+            <span>📅 ${new Date(job.created).toLocaleDateString()}</span>
+          </div>
+          <div class="job-card-desc">${job.description?.replace(/<[^>]*>/g, '').substring(0, 200)}...</div>
+          <div style="margin-top:1rem;font-size:0.78rem;color:var(--red);font-weight:600;">View Job →</div>
+        </a>
+      `).join('');
+    } catch(e) {
+      grid.innerHTML = '<div class="jobs-empty">Could not load jobs. Check your API keys.</div>';
+    }
+  };
+
+  // Load default jobs on page load
+  async function loadDefaultJobs() {
+    if (ADZUNA_APP_ID === 'YOUR_ADZUNA_APP_ID') {
+      document.getElementById('zipJobsGrid').innerHTML = `
+        <div style="grid-column:1/-1;text-align:center;padding:3rem;">
+          <p style="color:var(--stone);font-family:'Playfair Display',serif;font-style:italic;margin-bottom:1rem;">
+            Live job listings powered by Adzuna — coming soon.
+          </p>
+          <p style="font-size:0.82rem;color:var(--stone);opacity:0.7;">
+            Sign up free at <strong style="color:var(--red);">developer.adzuna.com</strong> to activate.
+          </p>
+        </div>`;
+      return;
+    }
+    document.getElementById('jobKeyword').value = 'entrepreneur';
+    await searchJobs();
+  }
+
+  // ============================================================
+  // COMMUNITY JOBS
+  // ============================================================
+  async function loadCommunityJobs() {
+    const grid = document.getElementById('communityJobsGrid');
+    grid.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--stone);">Loading...</div>';
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/tenacious_jobs?status=eq.active&order=created_at.desc&limit=20`,
+        { headers }
+      );
+      const jobs = await res.json();
+      if (!jobs.length) {
+        grid.innerHTML = '<div class="jobs-empty">No community jobs posted yet. Be the first to post an opportunity.</div>';
+        return;
+      }
+      grid.innerHTML = jobs.map(job => `
+        <div class="job-card">
+          <div class="job-card-title">${job.title}</div>
+          <div class="job-card-company">${job.company || 'Community Member'}</div>
+          <div class="job-card-meta">
+            <span>📍 ${job.location || 'Remote'}</span>
+            <span>🏷️ ${job.job_type || 'Full-time'}</span>
+            ${job.salary_range ? `<span>💰 ${job.salary_range}</span>` : ''}
+          </div>
+          <div class="job-card-desc">${job.description?.substring(0, 200)}...</div>
+          ${job.skills_required?.length ? `
+            <div class="job-card-skills">
+              ${job.skills_required.slice(0,4).map(s => `<span class="skill-tag">${s}</span>`).join('')}
+            </div>` : ''}
+          <div style="margin-top:1rem;display:flex;gap:0.8rem;">
+            ${job.apply_url ? `<a href="${job.apply_url}" target="_blank" class="btn-primary" style="font-size:0.75rem;padding:0.5rem 1rem;">Apply Online</a>` : ''}
+            ${job.apply_email ? `<a href="mailto:${job.apply_email}" class="btn-secondary" style="font-size:0.75rem;padding:0.5rem 1rem;">Email to Apply</a>` : ''}
+          </div>
+        </div>
+      `).join('');
+    } catch(e) {
+      grid.innerHTML = '<div class="jobs-empty">Could not load jobs.</div>';
+    }
+  }
+
+  function checkJobPostAuth() {
+    if (currentSession) {
+      document.getElementById('postJobAuthGate').style.display = 'none';
+      document.getElementById('postJobForm').style.display = 'block';
+    }
+  }
+
+  window.postJob = async () => {
+    if (!currentSession) return;
+    const msg = document.getElementById('jobPostMessage');
+    const skillsRaw = document.getElementById('job_skills').value;
+    const skills = skillsRaw ? skillsRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
+
+    const body = {
+      posted_by: currentSession.id,
+      title: document.getElementById('job_title').value,
+      company: document.getElementById('job_company').value,
+      location: document.getElementById('job_location').value,
+      job_type: document.getElementById('job_type').value,
+      industry: document.getElementById('job_industry').value,
+      salary_range: document.getElementById('job_salary').value,
+      description: document.getElementById('job_description').value,
+      skills_required: skills,
+      apply_url: document.getElementById('job_apply_url').value,
+      apply_email: document.getElementById('job_apply_email').value,
+      status: 'active'
+    };
+
+    if (!body.title || !body.description) {
+      msg.className = 'form-message error';
+      msg.textContent = 'Please fill in at least the job title and description.';
+      return;
+    }
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/tenacious_jobs`, {
+        method: 'POST',
+        headers: {
+          ...headers,
+          'Authorization': `Bearer ${currentSession.access_token || SUPABASE_KEY}`,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(body)
+      });
+      if (res.ok || res.status === 201) {
+        msg.className = 'form-message success';
+        msg.textContent = 'Job posted successfully! It\'s now live in the community job board.';
+        document.querySelectorAll('#postJobForm input, #postJobForm textarea').forEach(el => el.value = '');
+      } else throw new Error();
+    } catch(e) {
+      msg.className = 'form-message error';
+      msg.textContent = 'Failed to post job. Please try again.';
+    }
+  };
+
+  // ============================================================
+  // COMMUNITY PROFILES
+  // ============================================================
+  window.searchProfiles = async () => {
+    const query = document.getElementById('skillSearch').value.toLowerCase();
+    const grid = document.getElementById('profileGrid');
+    grid.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--stone);">Searching...</div>';
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/tenacious_profiles?is_public=eq.true&order=created_at.desc&limit=12`,
+        { headers }
+      );
+      const profiles = await res.json();
+      const filtered = query
+        ? profiles.filter(p =>
+            p.full_name?.toLowerCase().includes(query) ||
+            p.headline?.toLowerCase().includes(query) ||
+            p.story_title?.toLowerCase().includes(query)
+          )
+        : profiles;
+
+      if (!filtered.length) {
+        grid.innerHTML = '<div class="profiles-empty">No profiles found. Be the first to create yours.</div>';
+        return;
+      }
+      renderProfiles(filtered);
+    } catch(e) {
+      grid.innerHTML = '<div class="profiles-empty">Could not load profiles.</div>';
+    }
+  };
+
+  async function loadProfiles() {
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/tenacious_profiles?is_public=eq.true&order=created_at.desc&limit=12`,
+        { headers }
+      );
+      const profiles = await res.json();
+      if (!profiles.length) return;
+      renderProfiles(profiles);
+    } catch(e) {}
+  }
+
+  function renderProfiles(profiles) {
+    const grid = document.getElementById('profileGrid');
+    grid.innerHTML = profiles.map(p => `
+      <div class="profile-card" onclick="viewProfile('${p.username || p.id}')">
+        <div class="profile-card-top">
+          <div class="profile-avatar">
+            ${p.profile_photo_url
+              ? `<img src="${p.profile_photo_url}" alt="${p.full_name}">`
+              : (p.full_name?.[0] || '?')}
+          </div>
+          <div>
+            <div class="profile-name">${p.full_name || 'Community Member'}</div>
+            <div class="profile-headline">${p.headline || ''}</div>
+          </div>
+        </div>
+        <div class="profile-badges">
+          ${p.is_featured_author ? '<span class="badge badge-author">⭐ Featured Author</span>' : ''}
+          ${p.is_podcast_guest ? '<span class="badge badge-podcast">🎙️ Podcast Guest</span>' : ''}
+        </div>
+        ${p.story_title ? `<div style="font-size:0.82rem;color:var(--stone);font-style:italic;margin-bottom:0.5rem;">"${p.story_title}"</div>` : ''}
+        <div style="display:flex;gap:0.8rem;margin-top:0.8rem;flex-wrap:wrap;">
+          ${p.linkedin_url ? `<a href="${p.linkedin_url}" target="_blank" style="font-size:0.75rem;color:var(--red);">LinkedIn →</a>` : ''}
+          ${p.website_url ? `<a href="${p.website_url}" target="_blank" style="font-size:0.75rem;color:var(--red);">Website →</a>` : ''}
+          ${p.book_title ? `<span style="font-size:0.75rem;color:var(--stone);">📖 ${p.book_title}</span>` : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  window.viewProfile = (username) => {
+    alert(`Profile page for ${username} — full public profile pages coming with deployment.`);
+  };
+
+  // ============================================================
+  // PROFILE EDITOR TABS
+  // ============================================================
+  window.switchProfileTab = (tab) => {
+    document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.profile-tab-content').forEach(f => f.classList.remove('active'));
+    document.querySelector(`[onclick="switchProfileTab('${tab}')"]`).classList.add('active');
+    document.getElementById(`tab-${tab}`).classList.add('active');
+    if (tab === 'skills') loadSkills();
+  };
+
+  // ============================================================
+  // SKILLS
+  // ============================================================
+  let userSkills = [];
+
+  window.addSkill = async () => {
+    if (!currentSession) return;
+    const skill = {
+      profile_id: currentSession.id,
+      skill_name: document.getElementById('new_skill_name').value,
+      industry: document.getElementById('new_skill_industry').value,
+      years_experience: parseInt(document.getElementById('new_skill_years').value) || 0,
+      skill_type: document.getElementById('new_skill_type').value,
+      description: document.getElementById('new_skill_desc').value
+    };
+    if (!skill.skill_name) return;
+    try {
+      await fetch(`${SUPABASE_URL}/rest/v1/tenacious_skills`, {
+        method: 'POST',
+        headers: {
+          ...headers,
+          'Authorization': `Bearer ${currentSession.access_token || SUPABASE_KEY}`,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(skill)
+      });
+      document.getElementById('new_skill_name').value = '';
+      document.getElementById('new_skill_industry').value = '';
+      document.getElementById('new_skill_years').value = '';
+      document.getElementById('new_skill_desc').value = '';
+      loadSkills();
+    } catch(e) {}
+  };
+
+  async function loadSkills() {
+    if (!currentSession) return;
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/tenacious_skills?profile_id=eq.${currentSession.id}&order=created_at.desc`,
+        { headers: { ...headers, 'Authorization': `Bearer ${currentSession.access_token || SUPABASE_KEY}` } }
+      );
+      userSkills = await res.json();
+      const list = document.getElementById('skillsList');
+      if (!userSkills.length) { list.innerHTML = ''; return; }
+      list.innerHTML = userSkills.map(s => `
+        <div class="skill-item">
+          <div class="skill-item-info">
+            <div class="skill-item-name">
+              ${s.skill_name}
+              ${s.verified ? '<span style="color:#90ee90;margin-left:0.5rem;">✓ Verified</span>' : ''}
+            </div>
+            <div class="skill-item-meta">
+              ${s.industry ? s.industry + ' · ' : ''}
+              ${s.years_experience ? s.years_experience + ' years · ' : ''}
+              ${s.skill_type === 'offering' ? 'Offering' : s.skill_type === 'seeking' ? 'Seeking' : 'Offering & Seeking'}
+            </div>
+          </div>
+          <button class="skill-remove" onclick="removeSkill('${s.id}')">×</button>
+        </div>
+      `).join('');
+    } catch(e) {}
+  }
+
+  window.removeSkill = async (id) => {
+    if (!currentSession) return;
+    try {
+      await fetch(`${SUPABASE_URL}/rest/v1/tenacious_skills?id=eq.${id}`, {
+        method: 'DELETE',
+        headers: { ...headers, 'Authorization': `Bearer ${currentSession.access_token || SUPABASE_KEY}` }
+      });
+      loadSkills();
+    } catch(e) {}
+  };
+
+  // ============================================================
+  // SAVE PROFILE
+  // ============================================================
+  window.saveProfile = async () => {
+    if (!currentSession) return;
+    const msg = document.getElementById('profileMessage');
+    const username = document.getElementById('p_username').value
+      .toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-');
+
+    const body = {
+      id: currentSession.id,
+      full_name: document.getElementById('p_full_name').value,
+      email: currentSession.email,
+      username: username || null,
+      headline: document.getElementById('p_headline').value,
+      location: document.getElementById('p_location').value,
+      profile_photo_url: document.getElementById('p_photo_url').value,
+      story_title: document.getElementById('p_story_title').value,
+      story_body: document.getElementById('p_story_body').value,
+      story_published: document.getElementById('p_story_published').checked,
+      book_title: document.getElementById('p_book_title').value,
+      book_description: document.getElementById('p_book_description').value,
+      book_cover_url: document.getElementById('p_book_cover_url').value,
+      book_buy_link: document.getElementById('p_book_buy_link').value,
+      linkedin_url: document.getElementById('p_linkedin').value,
+      website_url: document.getElementById('p_website').value,
+      twitter_url: document.getElementById('p_twitter').value,
+      instagram_url: document.getElementById('p_instagram').value,
+      speaking_topics: document.getElementById('p_speaking_topics').value,
+      available_for_speaking: document.getElementById('p_speaking').checked,
+      is_public: true,
+      updated_at: new Date().toISOString()
+    };
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/tenacious_profiles`, {
+        method: 'POST',
+        headers: {
+          ...headers,
+          'Authorization': `Bearer ${currentSession.access_token || SUPABASE_KEY}`,
+          'Prefer': 'resolution=merge-duplicates,return=minimal'
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (res.ok || res.status === 201) {
+        msg.className = 'form-message success';
+        msg.textContent = 'Profile saved successfully!';
+        if (username) {
+          const linkWrap = document.getElementById('profileLinkWrap');
+          const link = document.getElementById('profileLink');
+          linkWrap.style.display = 'block';
+          link.textContent = `tenaciousentrepreneur.com/profile/${username}`;
+        }
+        loadProfiles();
+      } else throw new Error();
+    } catch(e) {
+      msg.className = 'form-message error';
+      msg.textContent = 'Could not save profile. Please try again.';
+    }
+  };
+
+  // Show profile editor when logged in
+  function checkProfileAuth() {
+    if (currentSession) {
+      document.getElementById('profileAuthGate').style.display = 'none';
+      document.getElementById('profileEditor').style.display = 'block';
+      checkJobPostAuth();
+    }
+  }
+
+  // ============================================================
+  // INIT
+  // ============================================================
+  checkSession().then(() => {
+    checkProfileAuth();
+    loadDefaultJobs();
+    loadProfiles();
+  });
+  loadEpisodes();
+
+  // Fade in on scroll
+  if (typeof gsap !== 'undefined') {
+    gsap.from('.hero-text', { opacity: 0, y: 40, duration: 1, ease: 'power3.out' });
+    gsap.from('.hero-image', { opacity: 0, x: 40, duration: 1, delay: 0.3, ease: 'power3.out' });
+  }
+</script>
+</body>
+</html>
