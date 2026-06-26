@@ -771,7 +771,15 @@
       </div>
       <div style="display:flex;gap:0.8rem;flex-wrap:wrap;justify-content:center;">
         <a href="https://www.amazon.com" target="_blank" class="btn-primary" style="font-size:0.78rem;padding:0.7rem 1.4rem;">Get the Book →</a>
-        <a href="#podcast" class="btn-secondary" style="font-size:0.78rem;padding:0.7rem 1.4rem;">🎧 Listen Now</a>
+        <button onclick="toggleAudioPlayer()" class="btn-secondary" style="font-size:0.78rem;padding:0.7rem 1.4rem;" id="listenBtn">🎧 Listen Now</button>
+      </div>
+      <!-- INLINE AUDIO PLAYER -->
+      <div id="audioPlayer" style="display:none;margin-top:1.2rem;width:100%;max-width:300px;">
+        <audio controls style="width:100%;border-radius:4px;" id="bookAudio">
+          <source src="https://raw.githubusercontent.com/joey875/tenacious-entrepreneur/main/sample.mp3" type="audio/mpeg">
+        </audio>
+        <p style="font-size:0.72rem;color:var(--stone);text-align:center;margin-top:0.4rem;font-style:italic;">Sample from Tenacious Entrepreneur</p>
+      </div>
       </div>
     </div>
   </div>
@@ -1835,6 +1843,24 @@
         `).join('');
     } catch(e) {}
   }
+
+  // ============================================================
+  // LISTEN NOW AUDIO PLAYER
+  // ============================================================
+  window.toggleAudioPlayer = () => {
+    const player = document.getElementById('audioPlayer');
+    const audio = document.getElementById('bookAudio');
+    const btn = document.getElementById('listenBtn');
+    if (player.style.display === 'none') {
+      player.style.display = 'block';
+      audio.play();
+      btn.textContent = '⏸ Pause Sample';
+    } else {
+      player.style.display = 'none';
+      audio.pause();
+      btn.textContent = '🎧 Listen Now';
+    }
+  };
 
   // ============================================================
   // ADZUNA JOB BOARD CONFIG
