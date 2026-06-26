@@ -73,7 +73,7 @@
   .hero::before {
     content: '';
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 70% 50%, rgba(200,149,42,0.1) 0%, transparent 60%);
+    background: radial-gradient(ellipse at 75% 50%, rgba(212,175,55,0.12) 0%, rgba(196,30,58,0.06) 35%, transparent 65%);
   }
   .hero-text { position: relative; z-index: 2; }
   .hero-eyebrow {
@@ -130,8 +130,12 @@
     transition: transform 0.4s;
     background: transparent;
     overflow: hidden;
+    filter: drop-shadow(0 0 25px rgba(212,175,55,0.5)) drop-shadow(0 0 60px rgba(212,175,55,0.25)) drop-shadow(0 0 100px rgba(196,30,58,0.2));
   }
-  .book-cover-wrap:hover { transform: perspective(800px) rotateY(-3deg) scale(1.02); }
+  .book-cover-wrap:hover { 
+    transform: perspective(800px) rotateY(-3deg) scale(1.02); 
+    filter: drop-shadow(0 0 35px rgba(212,175,55,0.7)) drop-shadow(0 0 80px rgba(212,175,55,0.35)) drop-shadow(0 0 120px rgba(196,30,58,0.3));
+  }
   .book-cover-wrap img { 
     width: 100%; 
     height: auto;
