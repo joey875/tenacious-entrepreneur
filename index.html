@@ -778,18 +778,45 @@
              alt="Tenacious Entrepreneur Book Cover"
              onerror="this.style.display='none';">
       </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
-        <p style="font-size:0.68rem;letter-spacing:0.35em;text-transform:uppercase;color:rgba(212,175,55,0.7);font-weight:600;margin-bottom:0.8rem;font-family:'Inter',sans-serif;">— Sample the Book —</p>
-        <div style="display:flex;gap:0.8rem;flex-wrap:wrap;justify-content:center;margin-top:0;">
+
+      <!-- SAMPLE BUTTONS -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0.8rem;">
+        <p style="font-size:0.68rem;letter-spacing:0.35em;text-transform:uppercase;color:#FFFFFF;font-weight:600;font-family:'Inter',sans-serif;">— Sample the Book —</p>
+        <div style="display:flex;gap:0.8rem;flex-wrap:wrap;justify-content:center;">
           <button onclick="toggleAudioPlayer()" id="listenBtn" style="background:#000;color:#D4AF37;font-size:0.82rem;padding:0.85rem 1.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border:2px solid #D4AF37;border-radius:2px;cursor:pointer;box-shadow:0 0 8px #D4AF37, 0 0 20px #D4AF37, 0 0 40px rgba(212,175,55,0.6);transition:all 0.2s;">🎧 Listen Now</button>
-          <a href="https://fliphtml5.com/lszje/xfus" target="_blank" style="background:#000;color:#D4AF37;font-size:0.82rem;padding:0.85rem 1.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border:2px solid #D4AF37;border-radius:2px;text-decoration:none;display:inline-block;box-shadow:0 0 4px rgba(212,175,55,0.4), 0 0 10px rgba(212,175,55,0.2);transition:all 0.2s;">📖 Read a Sample</a>
+          <a href="https://fliphtml5.com/lszje/xfus" target="_blank" style="background:#000;color:#D4AF37;font-size:0.82rem;padding:0.85rem 1.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border:2px solid #D4AF37;border-radius:2px;text-decoration:none;display:inline-block;box-shadow:0 0 8px #D4AF37, 0 0 20px #D4AF37, 0 0 40px rgba(212,175,55,0.6);transition:all 0.2s;">📖 Read Now</a>
         </div>
       </div>
+
+      <!-- AUDIO PLAYER -->
       <div id="audioPlayer" style="display:none;width:100%;max-width:300px;">
         <audio controls preload="none" style="width:100%;border-radius:4px;" id="bookAudio">
           <source src="https://raw.githubusercontent.com/joey875/tenacious-entrepreneur/main/sample.mp3" type="audio/mpeg">
         </audio>
         <p style="font-size:0.72rem;color:var(--stone);text-align:center;margin-top:0.4rem;font-style:italic;">Sample from Tenacious Entrepreneur</p>
+      </div>
+
+      <!-- BUY / DOWNLOAD LINKS -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0.6rem;width:100%;max-width:300px;margin-top:0.5rem;">
+
+        <!-- AUDIBLE -->
+        <div style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:0.7rem 1rem;display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:0.7rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#F8991D"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13v6l5 3-1 1.73-6-3.73V7h2z"/></svg>
+            <span style="color:#F8991D;font-size:0.82rem;font-weight:700;letter-spacing:0.05em;">AUDIBLE</span>
+          </div>
+          <a href="https://www.audible.com" target="_blank" style="background:#F8991D;color:#000;font-size:0.72rem;padding:0.4rem 0.9rem;border-radius:2px;text-decoration:none;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">Download</a>
+        </div>
+
+        <!-- AMAZON -->
+        <div style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:0.7rem 1rem;display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:0.7rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#FF9900"><path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.525.13.12.174.09.336-.12.48-.256.19-.6.41-1.006.67-1.09.7-2.3 1.24-3.618 1.61-1.323.38-2.66.56-4.03.56-1.892 0-3.717-.308-5.46-.93-1.747-.62-3.29-1.49-4.63-2.61-.117-.1-.132-.21-.043-.34zm9.97-13.65h-1.51c-.11 0-.16.08-.16.24V8.03c0 .14.05.21.16.21h1.51c.35 0 .62-.08.81-.24.19-.16.28-.39.28-.69 0-.3-.09-.52-.28-.68-.19-.16-.46-.24-.81-.24zm2.51 2.43c0 .46-.13.86-.4 1.2-.27.34-.64.57-1.12.7l1.66 2.42h-1.26l-1.5-2.28h-.88v2.28H8.5V4.23h2.17c.72 0 1.28.16 1.68.48.4.32.6.78.6 1.38v.71z"/></svg>
+            <span style="color:#FF9900;font-size:0.82rem;font-weight:700;letter-spacing:0.05em;">AMAZON</span>
+          </div>
+          <a href="https://www.amazon.com" target="_blank" style="background:#FF9900;color:#000;font-size:0.72rem;padding:0.4rem 0.9rem;border-radius:2px;text-decoration:none;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">Buy Now</a>
+        </div>
+
       </div>
     </div>
   </div>
