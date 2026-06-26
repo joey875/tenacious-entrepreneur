@@ -66,14 +66,14 @@
     min-height: 100vh;
     display: grid; grid-template-columns: 1fr 1fr;
     align-items: center;
-    padding: 8rem 3rem 4rem;
+    padding: 0 3rem;
     position: relative; overflow: hidden;
     background: #0A0A0A;
   }
   .hero::before {
     content: '';
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 70% 50%, rgba(184,134,11,0.12) 0%, transparent 60%);
+    background: radial-gradient(ellipse at 70% 50%, rgba(200,149,42,0.1) 0%, transparent 60%);
   }
   .hero-text { position: relative; z-index: 2; }
   .hero-eyebrow {
@@ -123,13 +123,14 @@
     display: flex; justify-content: center; align-items: center;
   }
   .book-cover-wrap {
-    width: 280px;
-    box-shadow: -20px 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(196,30,58,0.2);
+    width: 320px;
+    box-shadow: -20px 30px 80px rgba(0,0,0,0.9), 0 0 60px rgba(200,149,42,0.15);
     transform: perspective(800px) rotateY(-8deg);
     transition: transform 0.4s;
+    background: transparent;
   }
   .book-cover-wrap:hover { transform: perspective(800px) rotateY(-3deg) scale(1.02); }
-  .book-cover-wrap img { width: 100%; display: block; }
+  .book-cover-wrap img { width: 100%; display: block; background: transparent; }
 
   /* FORCE DARK ON ALL SECTIONS */
   html, body { background: #0A0A0A !important; }
