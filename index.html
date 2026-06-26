@@ -786,27 +786,19 @@
       <div style="display:flex;gap:1.5rem;justify-content:center;align-items:flex-start;width:100%;">
 
         <!-- COLUMN 1: LISTEN NOW + AUDIBLE -->
-        <div style="display:flex;flex-direction:column;align-items:center;gap:0.7rem;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0.8rem;">
           <button onclick="toggleAudioPlayer()" id="listenBtn" style="background:#000;color:#D4AF37;font-size:0.78rem;padding:0.75rem 1.4rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border:2px solid #D4AF37;border-radius:2px;cursor:pointer;box-shadow:0 0 8px #D4AF37, 0 0 20px #D4AF37, 0 0 40px rgba(212,175,55,0.6);transition:all 0.2s;white-space:nowrap;">🎧 Listen Now</button>
-          <div style="display:flex;flex-direction:column;align-items:center;gap:0.4rem;">
-            <img src="https://raw.githubusercontent.com/joey875/tenacious-entrepreneur/main/audible-logo.jpg" alt="Audible" style="width:60px;height:60px;object-fit:contain;border-radius:50%;">
-            <a href="https://www.audible.com" target="_blank" style="background:#F8991D;color:#000;font-size:0.72rem;padding:0.45rem 1rem;border-radius:2px;text-decoration:none;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;">Download</a>
-          </div>
+          <a href="https://www.audible.com" target="_blank">
+            <img src="https://raw.githubusercontent.com/joey875/tenacious-entrepreneur/main/audible-badge.png" alt="Now Available on Audible" style="width:160px;border-radius:6px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+          </a>
         </div>
 
         <!-- COLUMN 2: READ NOW + AMAZON -->
-        <div style="display:flex;flex-direction:column;align-items:center;gap:0.7rem;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0.8rem;">
           <a href="https://fliphtml5.com/lszje/xfus" target="_blank" style="background:#000;color:#D4AF37;font-size:0.78rem;padding:0.75rem 1.4rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border:2px solid #D4AF37;border-radius:2px;text-decoration:none;display:inline-block;box-shadow:0 0 8px #D4AF37, 0 0 20px #D4AF37, 0 0 40px rgba(212,175,55,0.6);transition:all 0.2s;white-space:nowrap;">📖 Read Now</a>
-          <div style="display:flex;flex-direction:column;align-items:center;gap:0.4rem;">
-            <svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-              <rect width="60" height="60" rx="8" fill="#FF9900"/>
-              <text x="30" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="#000">amazon</text>
-              <path d="M10 32 Q30 44 50 32" stroke="#000" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-              <polygon points="48,29 50,32 46,32" fill="#000"/>
-              <text x="30" y="50" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="#000">BOOKS</text>
-            </svg>
-            <a href="https://www.amazon.com" target="_blank" style="background:#FF9900;color:#000;font-size:0.72rem;padding:0.45rem 1rem;border-radius:2px;text-decoration:none;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;">Buy Now</a>
-          </div>
+          <a href="https://www.amazon.com" target="_blank">
+            <img src="https://raw.githubusercontent.com/joey875/tenacious-entrepreneur/main/amazon-badge.png" alt="Available on Amazon" style="width:160px;border-radius:6px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+          </a>
         </div>
 
       </div>
